@@ -1,12 +1,12 @@
-import { ADD_TODO, DELETE_TODO, TODO_ERROR, TODO_REQUEST, TODO_SUCCESS,  STATUS } from "./types"
+import { ADD_TODO, DELETE_TODO, TODO_ERROR, TODO_REQUEST, TODO_SUCCESS, STATUS, EDIT_TODO, EDIT } from "./types"
 
-export const addToDo = (inputVal, list) => {
-  
+export const addToDo = (inputVal) => {
 
   return {
     type: ADD_TODO,
     payload: {
-      id: Number(list.length + 1),
+      id:new Date().getTime().toString(),
+      // Number(list.length + 1),
       title: inputVal,
       status: 'pending'
     }
@@ -42,11 +42,28 @@ export const todoError = (error) => {
   }
 }
 
-export const statusss =(status,id) =>{
-  return{
-    type:STATUS,
-    payload:{
-      id,
-      status}
+export const statusss = (status, checkid) => {
+  return {
+    type: STATUS,
+    payload: {
+      checkid,
+      status
+    }
+  }
+}
+
+export const editToDo = (idxk,inputValue) => {
+  return {
+    type: EDIT_TODO,
+    payload:{ idxk,
+    inputValue }
+  }
+}
+
+export const edit = (inputValue) => {
+  return {
+    type: EDIT,
+    payload:
+      inputValue 
   }
 }

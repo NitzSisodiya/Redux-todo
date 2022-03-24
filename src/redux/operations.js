@@ -10,10 +10,11 @@ export const fetchTodoList = () => {
                 const todo_list = response.data.map(item => {
                     return ({
                         ...item,
-                        status: ''
+                        status: 'pending'
                     })
                 })
                 dispatch(todoSuccess(todo_list));
+
             })
             .catch((error) => {
                 dispatch(todoError(error.message));

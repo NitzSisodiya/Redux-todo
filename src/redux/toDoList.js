@@ -1,19 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addToDo, statusss } from './actions';
+import { addToDo, statusss, editToDo ,edit} from './actions';
 import { fetchTodoList } from './operations'
 import { deleteToDo } from './actions'
 
 function ToDO() {
+  const [id,setId]=useState('');
   const [inputValue, setInputValue] = useState('');
+  const [toggleButton, setToggleButton] = useState(true);
+  
   const list = useSelector(state => state.TodoReducer.list)
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
     e.preventDefault();
     setInputValue(e.target.value);
-
+  }
+  
+  const hello = (id,title)=>{
+    setId(id)
+    setInputValue(title)
+    setToggleButton(false)
   }
 
   console.log("todo_list", list)
@@ -29,10 +37,18 @@ function ToDO() {
           onChange={handleChange}
           placeholder='to do ...'
         />
-        <button
-          className="bttn"
-          onClick={() => { dispatch(addToDo(inputValue, list), setInputValue('')) }}
-        >Add</button>
+        {
+          toggleButton ?
+            (<button
+              className="bttn"
+              onClick={() => { dispatch(addToDo(inputValue, list), setInputValue('')) }}
+            >Add</button>) :
+            (<button
+              className="bttn"
+              onClick={() => { dispatch(editToDo(id,inputValue), setToggleButton(true),setInputValue('')) }}
+            >edit</button>
+            )
+        }
         <button
           className="bttn"
           onClick={() => dispatch(fetchTodoList())}
@@ -40,8 +56,7 @@ function ToDO() {
         <div className="head">
 
           {Object.values(list).map((element, i) => {
-            console.log("list", element.id)
-            console.log("list user", list)
+            
             return (
               <div>
                 <div key={i}>
@@ -52,22 +67,26 @@ function ToDO() {
                         <td> {element.title} </td>
                         <td>
                           <button className="bttn"
+                            onClick={() =>hello(element.id,element.title) } > Edit </button>
+                        </td>
+                        <td>
+                          <button className="bttn"
                             onClick={() => dispatch(deleteToDo(element.id))} > Delete </button>
                         </td>
                         <td>
                           <input name={i}
                             type="radio" value='pending'
-                            onClick={() => { dispatch(statusss('pending', element.id-1)) }} defaultChecked /> Pending
+                            onChange={(e) => { dispatch(statusss(e.target.value, element.id)) }} defaultChecked /> Pending
                         </td>
                         <td>
                           <input name={i}
                             type="radio" value='done'
-                            onClick={() => { dispatch(statusss('done', element.id-1)) }} /> Done
+                            onChange={(e) => { dispatch(statusss(e.target.value, element.id)) }} /> Done
                         </td>
                         <td>
                           <input name={i}
                             type="radio" value='inprogress'
-                            onClick={() => { dispatch(statusss('inProgress', element.id-1)) }} /> In progress
+                            onChange={(e) => { dispatch(statusss(e.target.value, element.id)) }} /> In progress
                         </td>
                       </tr>
                     </tbody>
