@@ -9,4 +9,3 @@ export const EDIT = 'EDIT'
 
 export const ADD_USER = 'ADD_USER'
 export const LOG_IN = "LOG_IN" 
-export const USER_INFO = "USER_INFO"

@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //  const users = useSelector(state=>state.TodoReducer.users)
   const [error, setError] = useState({
     nameErr: "",
     emailErr: "",
@@ -65,7 +64,7 @@ function SignUp() {
   };
 
   return (
-    <div className=" background container-fluid  row p-2 m-0">
+    <div className=" background container-fluid  row p-2 mx-0">
       <div className=" container col-8 content text-center ">
         <h1 className="m-2"> Registration Form </h1>
         <hr></hr>

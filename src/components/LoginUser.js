@@ -1,14 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
 import { userLogin } from "../redux/operations";
 
 function LogIn() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [isValid, setIsValid] = useState(true);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -19,11 +17,17 @@ function LogIn() {
     passwordErr: "",
   });
 
+  useEffect(() => {
+    setValues({
+      email: localStorage.getItem("email"),
+      password: localStorage.getItem("password"),
+    });
+  }, []);
+
   const handleInput = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
     setValues({ ...values, [name]: value });
-    console.log("value", values);
   };
 
   const validation = (values) => {
@@ -37,21 +41,18 @@ function LogIn() {
       setError({
         passwordErr: "Invalid password ",
       });
-      setIsValid(false);
     } else {
-      
-      const rest = dispatch(userLogin(values));
-      console.log("ressss",rest);
-      setIsValid(true);
-      
-        navigate("/login/todo")
-     
+      dispatch(userLogin(values));
       setError({ passwordErr: "" });
     }
   };
+  const remember = (values) => {
+    localStorage.setItem("email", values.email);
+    localStorage.setItem("password", values.password);
+  };
 
   return (
-    <div className="container-fluid  background row p-2 m-0">
+    <div className="container-fluid  background row p-2 mx-0">
       <div className=" container col-8 content text-center ">
         <h1 className="m-2"> Login </h1>
         <hr></hr>
@@ -78,6 +79,19 @@ function LogIn() {
           <p style={{ color: "black", fontSize: "16px" }}>
             {error.passwordErr}
           </p>
+        </div>
+        <div className="mb-3 mx-2">
+          <input
+            style={{ marginRight: "5px" }}
+            type="checkbox"
+            name="remember me"
+            onClick={() => {
+              remember(values);
+            }}
+          />
+          <label>
+            <b>Remember me</b>
+          </label>
         </div>
         <div className="mb-3 mx-2">
           <button

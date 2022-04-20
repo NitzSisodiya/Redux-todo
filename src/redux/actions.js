@@ -9,7 +9,7 @@ import {
   EDIT,
   ADD_USER,
   LOG_IN,
-  USER_INFO,
+  
 } from "./types";
 
 export const addToDo = (todo) => {
@@ -87,9 +87,4 @@ export const userLogin = (value) => {
   };
 };
 
-export const userInfo = (info) => {
-  return {
-    type: USER_INFO,
-    payload: info,
-  };
-};
+
