@@ -35,7 +35,7 @@ export const userLogin = (user) => {
   };
 };
 
-export const addUSerTodo = (id, todo) => {
+export const addUSerTodo = (id, todo ) => {
   const options = {
     url: "http://localhost:7000/addtodo",
     method: "post",
@@ -51,6 +51,7 @@ export const addUSerTodo = (id, todo) => {
     axios(options)
       .then((response) => {
         console.log("response", response);
+        dispatch(fetchToDoList(id));
       })
       .catch((error) => {
         console.log("error", error);
@@ -119,6 +120,7 @@ export const statusOfToDo = (id, userId, status) => {
   return async (dispatch) => {
     await axios(options).then((response) => {
       console.log("response", response);
+      dispatch(fetchToDoList(userId));
     });
   };
 };

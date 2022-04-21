@@ -137,25 +137,28 @@ function UserToDO() {
                         </td>
                         <td className="col-2">
                           <input
-                            name={status}
+                            name=""
                             type="radio"
                             id="pending"
-                            value={status}
+                            value="pending"
+                            checked={status === "pending"}
                             onChange={(e) => {
                               dispatch(
                                 statusOfToDo(_id, user_id, e.target.value),
                                 dispatch(todoStatus(_id, e.target.value))
                               );
                             }}
-                          />{" "}
+                            
+                          />
                           Pending
                         </td>
                         <td className="col-1">
                           <input
-                            name={status}
+                            name=""
                             id="done"
                             type="radio"
-                            value={status}
+                            value="done"
+                            checked={status === 'done'}
                             onChange={(e) => {
                               dispatch(
                                 statusOfToDo(_id, user_id, e.target.value),
@@ -167,10 +170,11 @@ function UserToDO() {
                         </td>
                         <td className="col-2">
                           <input
-                            name={status}
+                            name=""
                             id="inprogress"
                             type="radio"
-                            value={status}
+                            value="inprogress"
+                            checked={status === 'inprogress'}
                             onChange={(e) => {
                               dispatch(
                                 statusOfToDo(_id, user_id, e.target.value),
