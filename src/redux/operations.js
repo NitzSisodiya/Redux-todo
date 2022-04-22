@@ -1,17 +1,31 @@
 import axios from "axios";
 
-import { todoSuccess } from "./actions";
+import { todoSuccess, getUser } from "./actions";
 
-export const registerUser = (user) => {
+export const registerUser = (formData) => {
   return () => {
     axios
-      .post("http://localhost:7000/signup", user)
+      .post("http://localhost:7000/signup", formData)
       .then((response) => {
         console.log("response", response);
       })
       .catch((error) => {
-        alert("user already exist");
+        alert("registration failed!");
         console.log("error---", error);
+      });
+  };
+};
+
+export const getUserProfile = (id) => {
+  return async (dispatch) => {
+    await axios
+      .get(`http://localhost:7000/profile/${id}`)
+      .then((response) => {
+        console.log("response-get profile", response)
+        const user = response.data;
+        dispatch(getUser(user))
+      }).catch((error) => {
+        console.log("error", error);
       });
   };
 };
@@ -35,7 +49,7 @@ export const userLogin = (user) => {
   };
 };
 
-export const addUSerTodo = (id, todo ) => {
+export const addUSerTodo = (id, todo) => {
   const options = {
     url: "http://localhost:7000/addtodo",
     method: "post",

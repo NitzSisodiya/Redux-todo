@@ -21,7 +21,6 @@ function UserToDO() {
   const [toggleButton, setToggleButton] = useState(true);
 
   const list = useSelector((state) => state.TodoReducer.list);
-  console.log("list of user", list);
   const user_id = localStorage.getItem("id");
   const user_name = localStorage.getItem("name");
 
@@ -108,7 +107,6 @@ function UserToDO() {
         <div className="head ">
           {list?.map((list, i) => {
             const { _id, todo, status } = list;
-            console.log("statuss", i, status);
             return (
               <div key={i}>
                 <div className="" key={i}>

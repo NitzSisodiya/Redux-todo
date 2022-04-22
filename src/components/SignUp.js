@@ -13,6 +13,7 @@ function SignUp() {
     passwordErr: "",
     cpasswordErr: "",
   });
+  const [profile, setProfile] = useState("");
 
   const [formValues, setFormValues] = useState({
     name: "",
@@ -25,6 +26,10 @@ function SignUp() {
     event.preventDefault();
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
+  };
+
+  const onChange = (e) => {
+    setProfile(e.target.files[0]);
   };
 
   const validation = (formValues) => {
@@ -52,12 +57,20 @@ function SignUp() {
       });
     else {
       setError({ cpasswordErr: "" });
-      dispatch(registerUser(formValues));
+      var formData = new FormData();
+      formData.append("name", formValues.name);
+      formData.append("email", formValues.email);
+      formData.append("password", formValues.password);
+      formData.append("cpassword", formValues.cpassword);
+
+      formData.append("profile", profile);
+      dispatch(registerUser(formData));
       setFormValues({
         name: "",
         email: "",
         password: "",
         cpassword: "",
+        profile: "",
       });
       navigate("/login");
     }
@@ -128,6 +141,16 @@ function SignUp() {
             <p style={{ color: "black", fontSize: "16px" }}>
               {error.cpasswordErr}
             </p>
+          </div>
+          <div className="mb-3 mx-2">
+            <input
+              className="input"
+              type="file"
+              placeholder="file"
+              name="profile"
+              filename="profile"
+              onChange={onChange}
+            />
           </div>
           <div className="mb-3 mx-2">
             <button

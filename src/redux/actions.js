@@ -9,11 +9,10 @@ import {
   EDIT,
   ADD_USER,
   LOG_IN,
-  
+  GET_USER
 } from "./types";
 
 export const addToDo = (todo) => {
-  console.log("action todo ", todo);
   return {
     type: ADD_TODO,
     payload: todo,
@@ -59,7 +58,6 @@ export const todoStatus = (id,status) => {
 };
 
 export const editToDo = (id, todo) => {
-  console.log("edit to do    990909==>", id, todo);
   return {
     type: EDIT_TODO,
     payload: { id, todo },
@@ -79,6 +77,14 @@ export const addUser = (inputValue) => {
     payload: inputValue,
   };
 };
+
+export const getUser = (user) => {
+  return {
+    type: GET_USER,
+    payload: user,
+  };
+};
+
 
 export const userLogin = (value) => {
   return {

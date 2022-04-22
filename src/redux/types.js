@@ -8,4 +8,5 @@ export const EDIT_TODO = 'EDIT_TODO'
 export const EDIT = 'EDIT'
 
 export const ADD_USER = 'ADD_USER'
+export const GET_USER = 'GET_USER'
 export const LOG_IN = "LOG_IN" 

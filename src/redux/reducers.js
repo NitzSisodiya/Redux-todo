@@ -7,13 +7,14 @@ import {
   TODO_SUCCESS,
   EDIT_TODO,
   ADD_USER,
+  GET_USER,
 } from "./types";
 
 const initialState = {
   list: [],
   loading: false,
   error: "",
-  users: [],
+  user: {},
   singleUser: {},
 };
 
@@ -79,7 +80,11 @@ const TodoReducer = (state = initialState, action) => {
       return {
         users: [...state.users, action.payload],
       };
-
+    case GET_USER:
+      return {
+        ...state,
+        user: {...action.payload},
+      };
     default:
       return state;
   }
