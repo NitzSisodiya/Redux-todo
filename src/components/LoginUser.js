@@ -58,7 +58,7 @@ function LogIn() {
         <hr></hr>
         <div className="mb-3 mx-2">
           <label style={{ marginRight: "5px" }}>Email :</label>
-          <input
+          <input className="input"
             type="text"
             name="email"
             value={values.email}
@@ -69,7 +69,7 @@ function LogIn() {
         </div>
         <div className="mb-3 mx-2">
           <label style={{ marginRight: "5px" }}>Password :</label>
-          <input
+          <input className="input"
             type="password"
             name="password"
             value={values.password}
@@ -81,7 +81,7 @@ function LogIn() {
           </p>
         </div>
         <div className="mb-3 mx-2">
-          <input
+          <input 
             style={{ marginRight: "5px" }}
             type="checkbox"
             name="remember me"
@@ -96,7 +96,7 @@ function LogIn() {
         <div className="mb-3 mx-2">
           <button
             className="bttn"
-            type="button"
+            type="submit"
             onClick={() => validation(values)}
           >
             log in

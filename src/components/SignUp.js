@@ -13,8 +13,7 @@ function SignUp() {
     passwordErr: "",
     cpasswordErr: "",
   });
-  const [profile, setProfile] = useState("");
-
+  const [profile, setProfile] = useState();
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -27,7 +26,6 @@ function SignUp() {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
-
   const onChange = (e) => {
     setProfile(e.target.files[0]);
   };
@@ -64,15 +62,15 @@ function SignUp() {
       formData.append("cpassword", formValues.cpassword);
 
       formData.append("profile", profile);
+      console.log("formdata", formData);
       dispatch(registerUser(formData));
       setFormValues({
         name: "",
         email: "",
         password: "",
         cpassword: "",
-        profile: "",
       });
-      navigate("/login");
+      // setProfile("");
     }
   };
 
@@ -97,6 +95,7 @@ function SignUp() {
           <div className="mb-3 mx-2">
             <label style={{ marginRight: "5px" }}>Name :</label>
             <input
+              className="input"
               type="text"
               name="name"
               value={formValues.name}
@@ -108,6 +107,7 @@ function SignUp() {
           <div className="mb-3 mx-2">
             <label style={{ marginRight: "5px" }}> Email :</label>
             <input
+              className="input"
               type="email"
               name="email"
               value={formValues.email}
@@ -119,6 +119,7 @@ function SignUp() {
           <div className="mb-3 mx-2">
             <label style={{ marginRight: "5px" }}>Password :</label>
             <input
+              className="input"
               type="password"
               name="password"
               value={formValues.password}
@@ -132,6 +133,7 @@ function SignUp() {
           <div className="mb-3 mx-2">
             <label style={{ marginRight: "5px" }}> Confirm Password :</label>
             <input
+              className="input"
               type="password"
               name="cpassword"
               value={formValues.cpassword}
@@ -149,6 +151,8 @@ function SignUp() {
               placeholder="file"
               name="profile"
               filename="profile"
+              // value={'../images/defaultProfile.jpg'}
+              // defaultValue={"../images/defaultProfile.jpg"}
               onChange={onChange}
             />
           </div>

@@ -8,14 +8,13 @@ import {
   EDIT_TODO,
   ADD_USER,
   GET_USER,
-} from "./types";
+} from "./actionTypes";
 
 const initialState = {
   list: [],
   loading: false,
   error: "",
   user: {},
-  singleUser: {},
 };
 
 const TodoReducer = (state = initialState, action) => {
@@ -45,7 +44,7 @@ const TodoReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         list: action.payload.list,
-        singleUser: action.payload.info,
+        // singleUser: action.payload.info,
         error: "",
       };
 

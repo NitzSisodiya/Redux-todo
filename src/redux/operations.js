@@ -7,7 +7,9 @@ export const registerUser = (formData) => {
     axios
       .post("http://localhost:7000/signup", formData)
       .then((response) => {
-        console.log("response", response);
+        console.log("response-signup", response.data);
+        alert(response.data)
+        window.location = "/login";
       })
       .catch((error) => {
         alert("registration failed!");
@@ -76,7 +78,7 @@ export const addUSerTodo = (id, todo) => {
 export const toDoEdit = (id, todo) => {
   const options = {
     url: "http://localhost:7000/edittodo",
-    method: "post",
+    method: "put",
     headers: {
       Authorization: localStorage.getItem("Token"),
     },
@@ -97,14 +99,12 @@ export const toDoEdit = (id, todo) => {
 };
 export const delete_ToDo = (id) => {
   const options = {
-    url: "http://localhost:7000/deletetodo",
+    url: `http://localhost:7000/deletetodo/${id}`,
     method: "delete",
     headers: {
       Authorization: localStorage.getItem("Token"),
     },
-    data: {
-      id,
-    },
+   
   };
   return async () => {
     axios(options)
@@ -120,7 +120,7 @@ export const delete_ToDo = (id) => {
 export const statusOfToDo = (id, userId, status) => {
   const options = {
     url: "http://localhost:7000/updatestatus",
-    method: "post",
+    method: "put",
     headers: {
       Authorization: localStorage.getItem("Token"),
     },
@@ -154,6 +154,48 @@ export const fetchToDoList = (userId) => {
       const res = await axios(options);
       console.log("respose", res);
       dispatch(todoSuccess(res.data));
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
+};
+
+// export const fetchToDoList = (userId) => {
+//   const options = {
+//     url: `http://localhost:7000/fetchlist/${userId}`,
+//     method: "GET",
+//     headers: {
+//       Authorization: localStorage.getItem("Token"),
+//     },
+//     params: { userId: userId}
+//   };
+
+//   return async (dispatch) => {
+//     try {
+//       const res = await axios(options);
+//       console.log("respose", res);
+//       dispatch(todoSuccess(res.data));
+//     } catch (e) {
+//       console.log("error", e);
+//     }
+//   };
+// };
+
+export const uploadProfile = (id,data) => {
+  const options = {
+    url: `http://localhost:7000/uploadprofile/${id}`,
+    method: "put",
+    headers: {
+      Authorization: localStorage.getItem("Token"),
+    },
+    data:data,
+  };
+
+  return async (dispatch) => {
+    try {
+      const res = await axios(options);
+      console.log("respose", res);
+      alert("uploaded successfully!")
     } catch (e) {
       console.log("error", e);
     }

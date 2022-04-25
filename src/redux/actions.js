@@ -10,7 +10,7 @@ import {
   ADD_USER,
   LOG_IN,
   GET_USER
-} from "./types";
+} from "./actionTypes";
 
 export const addToDo = (todo) => {
   return {
