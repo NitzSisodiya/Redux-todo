@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+
 import {
   addUSerTodo,
   toDoEdit,
@@ -12,7 +12,7 @@ import {
 } from "../redux/operations";
 import { addToDo, toDoDelete, editToDo, todoStatus } from "../redux/actions";
 
-function UserToDO() {
+function UserToDo() {
   const dispatch = useDispatch();
 
   const [id, setId] = useState("");
@@ -99,7 +99,7 @@ function UserToDO() {
           <p style={{ color: "black", fontSize: "16px" }}>{err}</p>
         </div>
         {list.length > 0 ? (
-          <h3 style={{ textAlign: "center" }}>ToDO List </h3>
+          <h3 style={{ textAlign: "center" }}>To Do List </h3>
         ) : (
           <h3 style={{ textAlign: "center" }}>Please Add ToDo </h3>
         )}
@@ -114,7 +114,7 @@ function UserToDO() {
                     <tbody>
                       <tr className="row" key={i}>
                         <td className="col-1  text-dark"> {i + 1} </td>
-                        <td className="col-4 text-light"> {todo} </td>
+                        <td className="col-4 text-dark"> {todo} </td>
                         <td className="col-1">
                           <span className="me-2 text-dark">
                             <FaEdit size={22} onClick={() => edit(_id, todo)} />
@@ -194,4 +194,4 @@ function UserToDO() {
     </div>
   );
 }
-export default UserToDO;
+export default UserToDo;

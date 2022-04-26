@@ -2,11 +2,8 @@ import {
   ADD_TODO,
   DELETE_TODO,
   STATUS,
-  TODO_ERROR,
-  TODO_REQUEST,
   TODO_SUCCESS,
   EDIT_TODO,
-  ADD_USER,
   GET_USER,
 } from "./actionTypes";
 
@@ -33,25 +30,12 @@ const TodoReducer = (state = initialState, action) => {
         list: updatedList,
       };
 
-    case TODO_REQUEST:
-      return {
-        ...state.list,
-        loading: true,
-      };
-
     case TODO_SUCCESS:
       return {
         ...state,
         loading: false,
         list: action.payload.list,
-        // singleUser: action.payload.info,
         error: "",
-      };
-
-    case TODO_ERROR:
-      return {
-        loading: false,
-        error: [...state.list, action.payload],
       };
 
     case STATUS:
@@ -75,14 +59,10 @@ const TodoReducer = (state = initialState, action) => {
       );
       return { ...state, list: update_List };
 
-    case ADD_USER:
-      return {
-        users: [...state.users, action.payload],
-      };
     case GET_USER:
       return {
         ...state,
-        user: {...action.payload},
+        user: { ...action.payload },
       };
     default:
       return state;

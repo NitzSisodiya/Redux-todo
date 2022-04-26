@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { userLogin } from "../redux/operations";
 
 function LogIn() {
@@ -17,12 +18,12 @@ function LogIn() {
     passwordErr: "",
   });
 
-  useEffect(() => {
-    setValues({
-      email: localStorage.getItem("email"),
-      password: localStorage.getItem("password"),
-    });
-  }, []);
+  // useEffect(() => {
+  //   setValues({
+  //     email: localStorage.getItem("email"),
+  //     password: localStorage.getItem("password"),
+  //   });
+  // }, []);
 
   const handleInput = (event) => {
     event.preventDefault();
@@ -52,7 +53,7 @@ function LogIn() {
   };
 
   return (
-    <div className="container-fluid  background row p-2 mx-0">
+    <div className="container-fluid  background row  mx-0">
       <div className=" container col-8 content text-center ">
         <h1 className="m-2"> Login </h1>
         <hr></hr>
@@ -68,6 +69,7 @@ function LogIn() {
           <p style={{ color: "black", fontSize: "16px" }}>{error.emailErr}</p>
         </div>
         <div className="mb-3 mx-2">
+          
           <label style={{ marginRight: "5px" }}>Password :</label>
           <input className="input"
             type="password"

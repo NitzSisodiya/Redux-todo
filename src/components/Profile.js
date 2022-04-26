@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
-import { getUserProfile ,uploadProfile } from "../redux/operations";
+import { getUserProfile, uploadProfile } from "../redux/operations";
 
 function Profile() {
   const user_id = localStorage.getItem("id");
@@ -17,12 +17,12 @@ function Profile() {
   const selectProfile = (e) => {
     setProfile(e.target.files[0]);
   };
-  const changeProfile =(profile)=>{
-   var formData =new FormData();
-   formData.append("profile",profile);
-   dispatch(uploadProfile(user._id, formData));
-  }
-   
+
+  const changeProfile = (user_id) => {
+    var formData = new FormData();
+    formData.append("profile", profile);
+    dispatch(uploadProfile(user_id, formData));
+  };
 
   return (
     <>
@@ -30,7 +30,6 @@ function Profile() {
         {" "}
         {user.name}-Profile
         <div className="image ">
-          {console.log("profile", user.profile)}
           <img src={user.profile} height={180} width={150}></img>
         </div>
         <div className=" text-center m-2">
@@ -48,7 +47,7 @@ function Profile() {
           <button
             className="btn btn-success m-2"
             type="button "
-            onClick={changeProfile}
+            onClick={() => changeProfile(user_id)}
           >
             upload
           </button>

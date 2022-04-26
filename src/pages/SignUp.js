@@ -1,12 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { registerUser } from "../redux/operations";
 import { useNavigate } from "react-router-dom";
+
+import { registerUser } from "../redux/operations";
 
 function SignUp() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const [error, setError] = useState({
     nameErr: "",
     emailErr: "",
@@ -14,6 +16,7 @@ function SignUp() {
     cpasswordErr: "",
   });
   const [profile, setProfile] = useState();
+
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -26,6 +29,7 @@ function SignUp() {
     const { name, value } = event.target;
     setFormValues({ ...formValues, [name]: value });
   };
+
   const onChange = (e) => {
     setProfile(e.target.files[0]);
   };
@@ -62,7 +66,6 @@ function SignUp() {
       formData.append("cpassword", formValues.cpassword);
 
       formData.append("profile", profile);
-      console.log("formdata", formData);
       dispatch(registerUser(formData));
       setFormValues({
         name: "",
@@ -70,13 +73,12 @@ function SignUp() {
         password: "",
         cpassword: "",
       });
-      // setProfile("");
     }
   };
 
   return (
-    <div className=" background container-fluid  row p-2 mx-0">
-      <div className=" container col-8 content text-center ">
+    <div className=" background container-fluid padding  py-1 row mx-0">
+      <div className=" container col-8 content  text-center ">
         <h1 className="m-2"> Registration Form </h1>
         <hr></hr>
         <div className="m-2">
@@ -151,8 +153,6 @@ function SignUp() {
               placeholder="file"
               name="profile"
               filename="profile"
-              // value={'../images/defaultProfile.jpg'}
-              // defaultValue={"../images/defaultProfile.jpg"}
               onChange={onChange}
             />
           </div>

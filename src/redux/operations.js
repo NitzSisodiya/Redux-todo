@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 import { todoSuccess, getUser } from "./actions";
 
@@ -7,13 +8,11 @@ export const registerUser = (formData) => {
     axios
       .post("http://localhost:7000/signup", formData)
       .then((response) => {
-        console.log("response-signup", response.data);
-        alert(response.data)
+        toast("user added successfully!", { type: "success" });
         window.location = "/login";
       })
       .catch((error) => {
-        alert("registration failed!");
-        console.log("error---", error);
+        toast("Registration failed!", { type: "error" });
       });
   };
 };
@@ -23,11 +22,11 @@ export const getUserProfile = (id) => {
     await axios
       .get(`http://localhost:7000/profile/${id}`)
       .then((response) => {
-        console.log("response-get profile", response)
         const user = response.data;
-        dispatch(getUser(user))
-      }).catch((error) => {
-        console.log("error", error);
+        dispatch(getUser(user));
+      })
+      .catch((error) => {
+        toast("Issue in displaying profile", error, { type: "error" });
       });
   };
 };
@@ -42,11 +41,11 @@ export const userLogin = (user) => {
         localStorage.setItem("name", res.data.name);
         const todo_list = res.data.todo_list;
         dispatch(todoSuccess(todo_list));
+        toast("login successfully!", { type: "success" });
         window.location = "/login/todo";
       })
       .catch((error) => {
-        alert("check your email id and password");
-        console.log("error", error);
+        toast("Check email id and password!", error, { type: "error" });
       });
   };
 };
@@ -66,11 +65,11 @@ export const addUSerTodo = (id, todo) => {
   return (dispatch) => {
     axios(options)
       .then((response) => {
-        console.log("response", response);
+        toast("todo added successfully!", { type: "success" });
         dispatch(fetchToDoList(id));
       })
       .catch((error) => {
-        console.log("error", error);
+        toast("error in adding todo!", error, { type: "error" });
       });
   };
 };
@@ -90,10 +89,10 @@ export const toDoEdit = (id, todo) => {
   return async (dispatch) => {
     await axios(options)
       .then((response) => {
-        console.log("response", response);
+        toast("edited successfully!",response.data, { type: "success" });
       })
       .catch((error) => {
-        console.log("error", error);
+        toast("error in editing a todo!", error, { type: "error" });
       });
   };
 };
@@ -104,15 +103,14 @@ export const delete_ToDo = (id) => {
     headers: {
       Authorization: localStorage.getItem("Token"),
     },
-   
   };
   return async () => {
     axios(options)
       .then((response) => {
-        console.log("response from delete", response);
+        toast("deleted successfully!", { type: "success" });
       })
       .catch((e) => {
-        console.log("error", e);
+        toast("error in deleting todo!", { type: "error" });
       });
   };
 };
@@ -133,8 +131,8 @@ export const statusOfToDo = (id, userId, status) => {
 
   return async (dispatch) => {
     await axios(options).then((response) => {
-      console.log("response", response);
       dispatch(fetchToDoList(userId));
+      toast(" Status updated  successfully!", { type: "success" });
     });
   };
 };
@@ -152,52 +150,31 @@ export const fetchToDoList = (userId) => {
   return async (dispatch) => {
     try {
       const res = await axios(options);
-      console.log("respose", res);
       dispatch(todoSuccess(res.data));
-    } catch (e) {
-      console.log("error", e);
+    } catch  {
+      toast(" Error in fetching todo list!", { type: "error" });
     }
   };
 };
 
-// export const fetchToDoList = (userId) => {
-//   const options = {
-//     url: `http://localhost:7000/fetchlist/${userId}`,
-//     method: "GET",
-//     headers: {
-//       Authorization: localStorage.getItem("Token"),
-//     },
-//     params: { userId: userId}
-//   };
-
-//   return async (dispatch) => {
-//     try {
-//       const res = await axios(options);
-//       console.log("respose", res);
-//       dispatch(todoSuccess(res.data));
-//     } catch (e) {
-//       console.log("error", e);
-//     }
-//   };
-// };
-
-export const uploadProfile = (id,data) => {
+export const uploadProfile = (id, data) => {
   const options = {
     url: `http://localhost:7000/uploadprofile/${id}`,
     method: "put",
     headers: {
       Authorization: localStorage.getItem("Token"),
     },
-    data:data,
+    data,
   };
 
   return async (dispatch) => {
     try {
       const res = await axios(options);
-      console.log("respose", res);
-      alert("uploaded successfully!")
-    } catch (e) {
-      console.log("error", e);
+      const user = res.data;
+      dispatch(getUser(user));
+      toast("uploaded successfully!", { type: "success" });
+    } catch  {
+      toast("uploading failed!", { type: "error" });
     }
   };
 };

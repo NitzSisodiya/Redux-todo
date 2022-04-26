@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import LogIn from "./LoginUser";
-import SignUp from "./SignUp";
-import UserToDO from "./UserToDo";
-import Home from "./Home";
-import Profile from "./Profile";
 import { FaUserCircle } from "react-icons/fa";
 import { NavDropdown } from "react-bootstrap";
+
+import LogIn from "../pages/LoginUser";
+import SignUp from "../pages/SignUp";
+import Home from "../pages/Home";
+import UserToDo from "./UserToDo";
+import Profile from "./Profile";
 
 function Navbar() {
   const [token, setToken] = useState(localStorage.getItem("Token"));
@@ -19,39 +20,38 @@ function Navbar() {
   return (
     <div className="container-fluid main ">
       <Router>
-        <nav
-          className="p-1 Nav Nav-pills bg-light  navbar "
+        <div
+          className="p-1  bg-light  navbar "
           style={{ border: "1px solid black" }}
         >
-          <ul style={{ listStyleType: "none", display: "inline-flex" }}>
+          <div className="container d-flex ">
             {token ? (
               <>
-                <li style={{ padding: "5px" }}>
+                <div style={{ padding: "5px" }}>
                   <Link
                     to="/"
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     Home
                   </Link>{" "}
-                </li>
-                <li style={{ padding: "5px" }}>
+                </div>
+                <div style={{ padding: "5px", marginRight: "auto" }}>
                   <Link
                     to="/login/todo"
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     Todos
                   </Link>{" "}
-                </li>
-                <li >
+                </div>
+                <div className="drop-menu ">
                   <NavDropdown
                     id="basic-nav-dropdown"
-                    title={<FaUserCircle />}
+                    title={<FaUserCircle color="black" size={25} />}
                     className="dropdown"
                     style={{ textDecoration: "none", marginTop: "-8px" }}
                   >
                     <NavDropdown.Item as={Link} to={`/profile/${user_id}`}>
                       {" "}
-                      {/* <FaUserAlt size={20} /> */}
                       Profile
                     </NavDropdown.Item>
                     <NavDropdown.Divider />
@@ -65,44 +65,43 @@ function Navbar() {
                       Logout
                     </NavDropdown.Item>
                   </NavDropdown>
-                </li>
-                
+                </div>
               </>
             ) : (
               <>
-                <li style={{ padding: "5px" }}>
+                <div style={{ padding: "5px" }}>
                   <Link
                     to="/"
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     Home
                   </Link>{" "}
-                </li>
-                <li style={{ padding: "5px" }}>
+                </div>
+                <div style={{ padding: "5px", marginLeft: "auto" }}>
                   <Link
                     to="/signup"
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     Sign Up
                   </Link>{" "}
-                </li>
-                <li style={{ float: "right", padding: "5px" }}>
+                </div>
+                <div style={{ padding: "5px" }}>
                   <Link
                     to="/login"
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     Login
                   </Link>{" "}
-                </li>
+                </div>
               </>
             )}
-          </ul>
-        </nav>
+          </div>
+        </div>
 
         <Routes>
           {token ? (
             <>
-              <Route path="/login/todo" element={<UserToDO />} />
+              <Route path="/login/todo" element={<UserToDo />} />
               <Route path="/" element={<Home />}></Route>
               <Route path="/profile/:id" element={<Profile />}></Route>
             </>

@@ -13,7 +13,7 @@ code {
 }
 
 .main {
-  background-color: whitesmoke;
+  background-color: white;
   align-items: center;
   justify-content: center;
 }
@@ -22,14 +22,15 @@ code {
   margin-top: 12px;
   margin-bottom: 15px;
   border: 2px solid black;
-  background-color: tomato;
+  background-color: lightblue;
   align-items: center;
+  box-shadow: 8px 10px gainsboro;
   justify-content: center;
 }
 
 .head {
-  align-items: center;
-  color: yellow;
+  align-items: center;text-shadow: 0in;
+  color: black;
   text-align: center;
 }
 
@@ -48,7 +49,8 @@ code {
 }
 
 div.background {
-  border: 2px solid grey;
+  background-color: white;
+  /* border: 2px solid grey; */
   background: lightblue url("./images/todo.jpeg") no-repeat center;
   background-size: cover;
   align-items: center;
@@ -60,7 +62,7 @@ div.background {
 }
 
 div.transbox {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: #9494b8;
   -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   padding: 20px;
@@ -70,21 +72,10 @@ div.transbox {
 }
 
 @media only screen and (max-width: 600px) {
- 
-    .input {
-      width: 200px;
-    }
-    .col-s-1 {width: 8.33%;}
-  .col-s-2 {width: 16.66%;}
-  .col-s-3 {width: 25%;}
-  .col-s-4 {width: 33.33%;}
-  .col-s-5 {width: 41.66%;}
-  .col-s-6 {width: 50%;}
-  .col-s-7 {width: 58.33%;}
-  .col-s-8 {width: 66.66%;}
-  .col-s-9 {width: 75%;}
-  .col-s-10 {width: 83.33%;}
-  .col-s-11 {width: 91.66%;}
-  .col-s-12 {width: 100%;}
+  .input {
+    width: 180px;
+  }
+  .padding{
+    padding:0px ;
+  }
 }
-  

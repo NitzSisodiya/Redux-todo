@@ -3,16 +3,23 @@ import { Provider } from "react-redux";
 
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import {toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css";
 
-import store from "./redux/store";
+
 import Navbar from "./components/Routes";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, Persistor } from "./redux/store";
 
+toast.configure()
 function App() {
   return (
     <div className="App">
-       <Provider store={store}>
-      <Navbar />
-    </Provider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={Persistor}>
+          <Navbar />
+        </PersistGate>
+      </Provider>
     </div>
   );
 }
