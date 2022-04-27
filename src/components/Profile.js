@@ -26,10 +26,10 @@ function Profile() {
 
   return (
     <>
-      <div className="image text-center">
+      <div className="image my-2 text-center bg-light shadow">
         {" "}
         {user.name}-Profile
-        <div className="image ">
+        <div className="image">
           <img src={user.profile} height={180} width={150}></img>
         </div>
         <div className=" text-center m-2">

@@ -18,12 +18,33 @@ function LogIn() {
     passwordErr: "",
   });
 
-  // useEffect(() => {
-  //   setValues({
-  //     email: localStorage.getItem("email"),
-  //     password: localStorage.getItem("password"),
-  //   });
-  // }, []);
+  useEffect(() => {
+    const user = getCookie("myEmail");
+    const pswd = getCookie("myPassword");
+    console.log("usr---", user);
+    console.log("pass---", pswd);
+
+    setValues({
+      email: user,
+      password: pswd,
+      email: localStorage.getItem("email"),
+      password: localStorage.getItem("password"),
+    });
+  }, []);
+
+  const getCookie = (key) => {
+    const name = key + "=";
+    const arr = document.cookie.split("; ");
+    for (var i = 0; i < arr.length; i++) {
+      var item = arr[i];
+      while (item.charAt(0) == " ") {
+        return (item = item.substring(1));
+      }
+      if (item.indexOf(name) === 0) {
+        return item.substring(name.length, item.length);
+      }
+    }
+  };
 
   const handleInput = (event) => {
     event.preventDefault();
@@ -50,6 +71,10 @@ function LogIn() {
   const remember = (values) => {
     localStorage.setItem("email", values.email);
     localStorage.setItem("password", values.password);
+    document.cookie =
+      "myEmail=" + values.email + "; path=http://localhost:3000";
+    document.cookie =
+      "myPassword=" + values.password + "; path=http://localhost:3000";
   };
 
   return (
@@ -59,8 +84,10 @@ function LogIn() {
         <hr></hr>
         <div className="mb-3 mx-2">
           <label style={{ marginRight: "5px" }}>Email :</label>
-          <input className="input"
+          <input
+            className="input"
             type="text"
+            id="email"
             name="email"
             value={values.email}
             onChange={handleInput}
@@ -69,9 +96,9 @@ function LogIn() {
           <p style={{ color: "black", fontSize: "16px" }}>{error.emailErr}</p>
         </div>
         <div className="mb-3 mx-2">
-          
           <label style={{ marginRight: "5px" }}>Password :</label>
-          <input className="input"
+          <input
+            className="input"
             type="password"
             name="password"
             value={values.password}
@@ -83,7 +110,7 @@ function LogIn() {
           </p>
         </div>
         <div className="mb-3 mx-2">
-          <input 
+          <input
             style={{ marginRight: "5px" }}
             type="checkbox"
             name="remember me"

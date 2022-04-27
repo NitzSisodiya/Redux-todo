@@ -132,7 +132,7 @@ export const statusOfToDo = (id, userId, status) => {
   return async (dispatch) => {
     await axios(options).then((response) => {
       dispatch(fetchToDoList(userId));
-      toast(" Status updated  successfully!", { type: "success" });
+      toast(" Status updated  successfully!",response.status, { type: "success" });
     });
   };
 };

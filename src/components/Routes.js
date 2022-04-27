@@ -21,20 +21,12 @@ function Navbar() {
     <div className="container-fluid main ">
       <Router>
         <div
-          className="p-1  bg-light  navbar "
-          style={{ border: "1px solid black" }}
+          className="p-1 bg-light navbar "
+          style={{ border: "1px solid black",backgroundColor:"#b3ccff" }}
         >
           <div className="container d-flex ">
             {token ? (
               <>
-                <div style={{ padding: "5px" }}>
-                  <Link
-                    to="/"
-                    style={{ textDecoration: "none", color: "black" }}
-                  >
-                    Home
-                  </Link>{" "}
-                </div>
                 <div style={{ padding: "5px", marginRight: "auto" }}>
                   <Link
                     to="/login/todo"
