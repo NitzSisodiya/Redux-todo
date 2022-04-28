@@ -17,19 +17,19 @@ function LogIn() {
     emailErr: "",
     passwordErr: "",
   });
-
   useEffect(() => {
     const user = getCookie("myEmail");
     const pswd = getCookie("myPassword");
     console.log("usr---", user);
     console.log("pass---", pswd);
-
     setValues({
       email: user,
       password: pswd,
-      email: localStorage.getItem("email"),
-      password: localStorage.getItem("password"),
     });
+
+    document.cookie = "myEmail=; MaxAge=0; secure ;path=http://localhost:3000";
+    document.cookie =
+      "myPassword=; MaxAge=0; secure ; path=http://localhost:3000";
   }, []);
 
   const getCookie = (key) => {
@@ -69,8 +69,6 @@ function LogIn() {
     }
   };
   const remember = (values) => {
-    localStorage.setItem("email", values.email);
-    localStorage.setItem("password", values.password);
     document.cookie =
       "myEmail=" + values.email + "; path=http://localhost:3000";
     document.cookie =
@@ -82,7 +80,7 @@ function LogIn() {
       <div className=" container col-8 content text-center ">
         <h1 className="m-2"> Login </h1>
         <hr></hr>
-        <div className="mb-3 mx-2">
+        <div className="mb-3 mx-2 text-center">
           <label style={{ marginRight: "5px" }}>Email :</label>
           <input
             className="input"
@@ -114,6 +112,7 @@ function LogIn() {
             style={{ marginRight: "5px" }}
             type="checkbox"
             name="remember me"
+            id="myCheck"
             onClick={() => {
               remember(values);
             }}

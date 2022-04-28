@@ -63,10 +63,17 @@ function UserToDo() {
     setToggleButton(false);
   };
 
+  const cancelEdit = () => {
+    setId("");
+    setInputValue("");
+    setToggleButton(true);
+  };
+
   return (
     <div className="main  background container-fluid row mx-0">
       <div className="content col-11">
         <h1 className="head"> {user_name}'s To Do List</h1>
+        <hr></hr>
         <div>
           <label style={{ marginRight: "5px" }}>
             <b>Add your todo :</b>
@@ -96,6 +103,9 @@ function UserToDo() {
               edit
             </button>
           )}{" "}
+          <button className="bttn" onClick={cancelEdit}>
+            Cancel
+          </button>
           <p style={{ color: "black", fontSize: "16px" }}>{err}</p>
         </div>
         {list.length > 0 ? (
@@ -103,7 +113,7 @@ function UserToDo() {
         ) : (
           <h3 style={{ textAlign: "center" }}>Please Add ToDo </h3>
         )}
-        {<hr></hr>}
+       
         <div className="head ">
           {list?.map((list, i) => {
             const { _id, todo, status } = list;
@@ -146,7 +156,6 @@ function UserToDo() {
                                 dispatch(todoStatus(_id, e.target.value))
                               );
                             }}
-                            
                           />
                           Pending
                         </td>
@@ -156,7 +165,7 @@ function UserToDo() {
                             id="done"
                             type="radio"
                             value="done"
-                            checked={status === 'done'}
+                            checked={status === "done"}
                             onChange={(e) => {
                               dispatch(
                                 statusOfToDo(_id, user_id, e.target.value),
@@ -172,7 +181,7 @@ function UserToDo() {
                             id="inprogress"
                             type="radio"
                             value="inprogress"
-                            checked={status === 'inprogress'}
+                            checked={status === "inprogress"}
                             onChange={(e) => {
                               dispatch(
                                 statusOfToDo(_id, user_id, e.target.value),

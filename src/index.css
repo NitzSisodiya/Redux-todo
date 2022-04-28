@@ -32,6 +32,7 @@ code {
   align-items: center;text-shadow: 0in;
   color: black;
   text-align: center;
+  margin-top: 4px
 }
 
 .bttn {
@@ -69,6 +70,14 @@ div.transbox {
   margin: 30px;
   font-weight: bold;
   color: black;
+}
+
+.int {
+  border:none;
+  border-bottom: rgb(56, 30, 30) solid 2px;
+  box-shadow: 1px black;
+  background-color: #f8f8f8;
+  border-radius: 5px;
 }
 
 @media only screen and (max-width: 600px) {

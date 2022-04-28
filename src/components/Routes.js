@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
+import {BiLogIn} from "react-icons/bi"
 import { NavDropdown } from "react-bootstrap";
 
 import LogIn from "../pages/LoginUser";
@@ -50,7 +51,7 @@ function Navbar() {
                     <NavDropdown.Item
                       onClick={() => {
                         localStorage.clear();
-                        window.location = "/";
+                        window.location = "/login";
                       }}
                       style={{ textDecoration: "none", color: "black" }}
                     >
@@ -82,7 +83,7 @@ function Navbar() {
                     to="/login"
                     style={{ textDecoration: "none", color: "black" }}
                   >
-                    Login
+                    Login<BiLogIn/>
                   </Link>{" "}
                 </div>
               </>
