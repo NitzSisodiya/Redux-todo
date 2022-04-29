@@ -3,13 +3,11 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 import { getUserProfile, uploadProfile } from "../redux/operations";
-import { changeStateProfile } from "../redux/actions";
 
 function Profile() {
   const user_id = localStorage.getItem("id");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.TodoReducer.user);
-  console.log("user->", user);
   useEffect(() => {
     dispatch(getUserProfile(user_id));
   }, []);
@@ -29,19 +27,11 @@ function Profile() {
     }
   };
 
-  // const removeProfile = (user_id) => {
-  //   var formData = new FormData();
-  //   formData.append("profile", );
-  //   dispatch(uploadProfile(user_id, formData));
-  // };
-
   return (
     <>
       <div className="image my-2 text-center   bg-light shadow">
         {" "}
         {user.name}-Profile
-        {user.profile}-profile
-        {/* {profile}-profile */}
         <div className="image ">
           <img
             className="border border-dark rounded"
@@ -65,12 +55,7 @@ function Profile() {
           <button
             className="btn btn-success m-2"
             type="button "
-            onClick={
-              () =>
-                changeProfile(
-                  user_id
-                ) /* dispatch(changeStateProfile(profile)) */
-            }
+            onClick={() => changeProfile(user_id)}
           >
             Upload
           </button>

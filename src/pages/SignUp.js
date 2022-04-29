@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {BiLogIn} from "react-icons/bi"
+import { BiLogIn } from "react-icons/bi";
 import { registerUser } from "../redux/operations";
 
 function SignUp() {
@@ -90,7 +90,8 @@ function SignUp() {
               navigate("/login");
             }}
           >
-            login<BiLogIn/>
+            login
+            <BiLogIn />
           </button>
         </div>
         <form>

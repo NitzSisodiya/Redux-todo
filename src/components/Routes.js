@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
-import {BiLogIn} from "react-icons/bi"
+import { BiLogIn } from "react-icons/bi";
 import { NavDropdown } from "react-bootstrap";
 
 import LogIn from "../pages/LoginUser";
@@ -23,7 +23,7 @@ function Navbar() {
       <Router>
         <div
           className="p-1 bg-light navbar "
-          style={{ border: "1px solid black",backgroundColor:"#b3ccff" }}
+          style={{ border: "1px solid black", backgroundColor: "#b3ccff" }}
         >
           <div className="container d-flex ">
             {token ? (
@@ -83,7 +83,8 @@ function Navbar() {
                     to="/login"
                     style={{ textDecoration: "none", color: "black" }}
                   >
-                    Login<BiLogIn/>
+                    Login
+                    <BiLogIn />
                   </Link>{" "}
                 </div>
               </>

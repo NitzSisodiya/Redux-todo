@@ -61,7 +61,6 @@ export const userLogin = (value) => {
 };
 
 export const changeStateProfile = ( profile) => {
-  console.log("profile=action",profile);
   return {
     type: STATE_PROFILE,
     payload: { profile },

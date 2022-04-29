@@ -66,8 +66,6 @@ const TodoReducer = (state = initialState, action) => {
         user: { ...action.payload },
       };
 
-    
-
     default:
       return state;
   }
