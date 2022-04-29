@@ -6,3 +6,4 @@ export const EDIT_TODO = "EDIT_TODO";
 
 export const GET_USER = "GET_USER";
 export const LOG_IN = "LOG_IN";
+export const STATE_PROFILE = "STATE_PROFILE";

@@ -3,34 +3,52 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 import { getUserProfile, uploadProfile } from "../redux/operations";
+import { changeStateProfile } from "../redux/actions";
 
 function Profile() {
   const user_id = localStorage.getItem("id");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.TodoReducer.user);
+  console.log("user->", user);
   useEffect(() => {
     dispatch(getUserProfile(user_id));
   }, []);
 
-  const [profile, setProfile] = useState();
+  const [profile, setProfile] = useState(user.profile);
 
   const selectProfile = (e) => {
     setProfile(e.target.files[0]);
   };
-
+  console.log("pro", profile);
+  console.log("user.pro", user.profile);
   const changeProfile = (user_id) => {
-    var formData = new FormData();
-    formData.append("profile", profile);
-    dispatch(uploadProfile(user_id, formData));
+    if (profile !== user.profile) {
+      var formData = new FormData();
+      formData.append("profile", profile);
+      dispatch(uploadProfile(user_id, formData));
+    }
   };
+
+  // const removeProfile = (user_id) => {
+  //   var formData = new FormData();
+  //   formData.append("profile", );
+  //   dispatch(uploadProfile(user_id, formData));
+  // };
 
   return (
     <>
-      <div className="image my-2 text-center bg-light shadow">
+      <div className="image my-2 text-center   bg-light shadow">
         {" "}
         {user.name}-Profile
-        <div className="image">
-          <img src={user.profile} height={180} width={150}></img>
+        {user.profile}-profile
+        {/* {profile}-profile */}
+        <div className="image ">
+          <img
+            className="border border-dark rounded"
+            src={user.profile}
+            height={180}
+            width={150}
+          ></img>
         </div>
         <div className=" text-center m-2">
           {" "}
@@ -47,9 +65,14 @@ function Profile() {
           <button
             className="btn btn-success m-2"
             type="button "
-            onClick={() => changeProfile(user_id)}
+            onClick={
+              () =>
+                changeProfile(
+                  user_id
+                ) /* dispatch(changeStateProfile(profile)) */
+            }
           >
-            upload
+            Upload
           </button>
         </div>
       </div>

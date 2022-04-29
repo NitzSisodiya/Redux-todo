@@ -6,6 +6,7 @@ import {
   EDIT_TODO,
   LOG_IN,
   GET_USER,
+  STATE_PROFILE,
 } from "./actionTypes";
 
 export const addToDo = (todo) => {
@@ -56,5 +57,13 @@ export const userLogin = (value) => {
   return {
     type: LOG_IN,
     payload: value,
+  };
+};
+
+export const changeStateProfile = ( profile) => {
+  console.log("profile=action",profile);
+  return {
+    type: STATE_PROFILE,
+    payload: { profile },
   };
 };

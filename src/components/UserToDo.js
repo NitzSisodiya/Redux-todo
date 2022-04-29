@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
+import { Table } from "react-bootstrap";
 
 import {
   addUSerTodo,
@@ -74,63 +75,80 @@ function UserToDo() {
       <div className="content col-11">
         <h1 className="head"> {user_name}'s To Do List</h1>
         <hr></hr>
-        <div>
-          <label style={{ marginRight: "5px" }}>
-            <b>Add your todo :</b>
-          </label>
-          <input
-            style={{ marginRight: "5px" }}
-            type="text"
-            value={inputValue}
-            onChange={handleChange}
-          />
-          {toggleButton ? (
+        <div className="write-to-do">
+          <div className="p-1">
+            {" "}
+            <label style={{ marginRight: "5px" }}>
+              <b>Add your todo :</b>
+            </label>{" "}
+          </div>
+          <div className="p-1 input ">
+            {" "}
+            <input
+              className="input"
+              style={{ marginRight: "5px" }}
+              type="text"
+              value={inputValue}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="p-1">
+            {toggleButton ? (
+              <button
+                className="bttn"
+                onClick={() => {
+                  validation(inputValue);
+                }}
+              >
+                Add
+              </button>
+            ) : (
+              <button
+                className="bttn"
+                onClick={() => {
+                  validation(inputValue);
+                }}
+              >
+                edit
+              </button>
+            )}
             <button
+              style={{ marginLeft: "5px" }}
               className="bttn"
-              onClick={() => {
-                validation(inputValue);
-              }}
+              onClick={cancelEdit}
             >
-              Add
+              Cancel
             </button>
-          ) : (
-            <button
-              className="bttn"
-              onClick={() => {
-                validation(inputValue);
-              }}
-            >
-              edit
-            </button>
-          )}{" "}
-          <button className="bttn" onClick={cancelEdit}>
-            Cancel
-          </button>
-          <p style={{ color: "black", fontSize: "16px" }}>{err}</p>
+          </div>
+
+          
         </div>
+        <div className="p-1">
+            <p style={{ color: "black", fontSize: "16px" }}>{err}</p>
+          </div>
         {list.length > 0 ? (
           <h3 style={{ textAlign: "center" }}>To Do List </h3>
         ) : (
           <h3 style={{ textAlign: "center" }}>Please Add ToDo </h3>
         )}
-       
+
         <div className="head ">
           {list?.map((list, i) => {
             const { _id, todo, status } = list;
             return (
               <div key={i}>
-                <div className="" key={i}>
-                  <table className="table">
+                <div key={i}>
+                  <Table responsive>
                     <tbody>
-                      <tr className="row" key={i}>
-                        <td className="col-1  text-dark"> {i + 1} </td>
-                        <td className="col-4 text-dark"> {todo} </td>
-                        <td className="col-1">
+                      <tr className="" key={i}>
+                        <td className=" col-1 text-dark"> {i + 1} </td>
+                        <td className="col-4  text-dark"> {todo} </td>
+                        <td className="col-1 ">
                           <span className="me-2 text-dark">
                             <FaEdit size={22} onClick={() => edit(_id, todo)} />
                           </span>
                         </td>
-                        <td className="col-1">
+                        <td className="col-1 ">
                           <span className="ms-2 text-dark">
                             <MdDelete
                               size={22}
@@ -143,7 +161,7 @@ function UserToDo() {
                             />
                           </span>
                         </td>
-                        <td className="col-2">
+                        <td className="col-2 ">
                           <input
                             name=""
                             type="radio"
@@ -159,7 +177,7 @@ function UserToDo() {
                           />
                           Pending
                         </td>
-                        <td className="col-1">
+                        <td className="col-1 ">
                           <input
                             name=""
                             id="done"
@@ -175,7 +193,7 @@ function UserToDo() {
                           />{" "}
                           Done
                         </td>
-                        <td className="col-2">
+                        <td className="col-2 ">
                           <input
                             name=""
                             id="inprogress"
@@ -193,7 +211,7 @@ function UserToDo() {
                         </td>
                       </tr>
                     </tbody>
-                  </table>
+                  </Table>
                 </div>
               </div>
             );

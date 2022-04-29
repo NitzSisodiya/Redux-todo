@@ -5,6 +5,7 @@ import {
   TODO_SUCCESS,
   EDIT_TODO,
   GET_USER,
+  STATE_PROFILE,
 } from "./actionTypes";
 
 const initialState = {
@@ -64,6 +65,9 @@ const TodoReducer = (state = initialState, action) => {
         ...state,
         user: { ...action.payload },
       };
+
+    
+
     default:
       return state;
   }

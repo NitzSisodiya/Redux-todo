@@ -89,7 +89,7 @@ export const toDoEdit = (id, todo) => {
   return async (dispatch) => {
     await axios(options)
       .then((response) => {
-        toast("edited successfully!",response.data, { type: "success" });
+        toast("edited successfully!", response.data, { type: "success" });
       })
       .catch((error) => {
         toast("error in editing a todo!", error, { type: "error" });
@@ -132,7 +132,9 @@ export const statusOfToDo = (id, userId, status) => {
   return async (dispatch) => {
     await axios(options).then((response) => {
       dispatch(fetchToDoList(userId));
-      toast(" Status updated  successfully!",response.status, { type: "success" });
+      toast(" Status updated  successfully!", response.status, {
+        type: "success",
+      });
     });
   };
 };
@@ -151,13 +153,37 @@ export const fetchToDoList = (userId) => {
     try {
       const res = await axios(options);
       dispatch(todoSuccess(res.data));
-    } catch  {
+    } catch {
       toast(" Error in fetching todo list!", { type: "error" });
     }
   };
 };
 
 export const uploadProfile = (id, data) => {
+  console.log("data", data);
+  const options = {
+    url: `http://localhost:7000/uploadprofile/${id}`,
+    method: "put",
+    headers: {
+      Authorization: localStorage.getItem("Token"),
+    },
+
+    data,
+  };
+
+  return async (dispatch) => {
+    try {
+      const res = await axios(options);
+      const user = res.data;
+      dispatch(getUser(user));
+      toast("uploaded successfully!", { type: "success" });
+    } catch {
+      toast("uploading failed!", { type: "error" });
+    }
+  };
+};
+
+export const removeProfile = (id, data) => {
   const options = {
     url: `http://localhost:7000/uploadprofile/${id}`,
     method: "put",
@@ -172,9 +198,9 @@ export const uploadProfile = (id, data) => {
       const res = await axios(options);
       const user = res.data;
       dispatch(getUser(user));
-      toast("uploaded successfully!", { type: "success" });
-    } catch  {
-      toast("uploading failed!", { type: "error" });
+      toast("remove  successfully!", { type: "success" });
+    } catch {
+      toast("profile not removed", { type: "error" });
     }
   };
 };

@@ -80,11 +80,18 @@ div.transbox {
   border-radius: 5px;
 }
 
+.write-to-do{
+display: flex;
+}
+
 @media only screen and (max-width: 600px) {
   .input {
     width: 180px;
   }
   .padding{
     padding:0px ;
+  }
+  .write-to-do{
+    display: block;
   }
 }
