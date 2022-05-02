@@ -3,16 +3,24 @@ import { toast } from "react-toastify";
 
 import { todoSuccess, getUser } from "./actions";
 
-export const registerUser = (formData) => {
-  return () => {
-    axios
+export const registerUser = (formValues, profile) => {
+  var formData = new FormData();
+  formData.append("name", formValues.name);
+  formData.append("email", formValues.email);
+  formData.append("password", formValues.password);
+  formData.append("cpassword", formValues.cpassword);
+  formData.append("profile", profile);
+  return async () => {
+    await axios
       .post("http://localhost:7000/signup", formData)
       .then((response) => {
         toast("user added successfully!", { type: "success" });
         window.location = "/login";
+        return { isRegistered: true };
       })
       .catch((error) => {
-        toast("Registration failed!", { type: "error" });
+        toast(error.response.data, { type: "error" });
+        return { isRegistered: false };
       });
   };
 };
@@ -42,7 +50,7 @@ export const userLogin = (user) => {
         const todo_list = res.data.todo_list;
         dispatch(todoSuccess(todo_list));
         toast("login successfully!", { type: "success" });
-        window.location = "/login/todo";
+        window.location = "/todo";
       })
       .catch((error) => {
         toast("Check email id and password!", error, { type: "error" });
@@ -96,7 +104,7 @@ export const toDoEdit = (id, todo) => {
       });
   };
 };
-export const delete_ToDo = (id) => {
+export const deleteToDo = (id) => {
   const options = {
     url: `http://localhost:7000/deletetodo/${id}`,
     method: "delete",
@@ -131,8 +139,7 @@ export const statusOfToDo = (id, userId, status) => {
 
   return async (dispatch) => {
     await axios(options).then((response) => {
-      dispatch(fetchToDoList(userId));
-      toast(" Status updated  successfully!", response.status, {
+      toast(" Status updated  successfully!", {
         type: "success",
       });
     });
@@ -141,7 +148,7 @@ export const statusOfToDo = (id, userId, status) => {
 
 export const fetchToDoList = (userId) => {
   const options = {
-    url: "http://localhost:7000/fetchlist",
+    url: `http://localhost:7000/fetchlist/${userId}`,
     method: "GET",
     headers: {
       Authorization: localStorage.getItem("Token"),
@@ -160,7 +167,6 @@ export const fetchToDoList = (userId) => {
 };
 
 export const uploadProfile = (id, data) => {
-  console.log("data", data);
   const options = {
     url: `http://localhost:7000/uploadprofile/${id}`,
     method: "put",
@@ -198,7 +204,7 @@ export const removeProfile = (id, data) => {
       const res = await axios(options);
       const user = res.data;
       dispatch(getUser(user));
-      toast("remove  successfully!", { type: "success" });
+      toast("removed  successfully!", { type: "success" });
     } catch {
       toast("profile not removed", { type: "error" });
     }

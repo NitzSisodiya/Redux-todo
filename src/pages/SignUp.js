@@ -1,13 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { BiLogIn } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { registerUser } from "../redux/operations";
 
 function SignUp() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [error, setError] = useState({
     nameErr: "",
@@ -16,6 +15,8 @@ function SignUp() {
     cpasswordErr: "",
   });
   const [profile, setProfile] = useState();
+  const [showPassword, setShowPassword] = useState();
+  const [showConfirmPassword, setShowConfirmPassword] = useState();
 
   const [formValues, setFormValues] = useState({
     name: "",
@@ -34,7 +35,7 @@ function SignUp() {
     setProfile(e.target.files[0]);
   };
 
-  const validation = (formValues) => {
+  const validation = () => {
     const { name, password, cpassword, email } = formValues;
     const emailCheck = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
       email
@@ -55,24 +56,19 @@ function SignUp() {
       });
     else if (password !== cpassword)
       setError({
-        cpasswordErr: "Please Confirm your password !",
+        cpasswordErr: " password didn't match !",
       });
     else {
       setError({ cpasswordErr: "" });
-      var formData = new FormData();
-      formData.append("name", formValues.name);
-      formData.append("email", formValues.email);
-      formData.append("password", formValues.password);
-      formData.append("cpassword", formValues.cpassword);
-
-      formData.append("profile", profile);
-      dispatch(registerUser(formData));
-      setFormValues({
-        name: "",
-        email: "",
-        password: "",
-        cpassword: "",
-      });
+      const res = dispatch(registerUser(formValues, profile));
+      if (res.isRegistered) {
+        setFormValues({
+          name: "",
+          email: "",
+          password: "",
+          cpassword: "",
+        });
+      }
     }
   };
 
@@ -81,19 +77,7 @@ function SignUp() {
       <div className=" container col-8 content  text-center ">
         <h1 className="m-2"> Registration Form </h1>
         <hr></hr>
-        <div className="m-2">
-          <b> Already have an account? then-</b>{" "}
-          <button
-            className="bttn"
-            type="button"
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            login
-            <BiLogIn />
-          </button>
-        </div>
+
         <form>
           <div className="mb-3 mx-2">
             <label style={{ marginRight: "5px" }}>Name :</label>
@@ -105,7 +89,7 @@ function SignUp() {
               onChange={handleInput}
               placeholder="enter your name"
             />
-            <p style={{ color: "black", fontSize: "16px" }}>{error.nameErr}</p>
+            <p style={{ color: "red", fontSize: "12px" }}>{error.nameErr}</p>
           </div>
           <div className="mb-3 mx-2">
             <label style={{ marginRight: "5px" }}> Email :</label>
@@ -117,19 +101,26 @@ function SignUp() {
               onChange={handleInput}
               placeholder="enter your email id "
             />{" "}
-            <p style={{ color: "black", fontSize: "16px" }}>{error.emailErr}</p>
+            <p style={{ color: "red", fontSize: "12px" }}>{error.emailErr}</p>
           </div>
           <div className="mb-3 mx-2">
             <label style={{ marginRight: "5px" }}>Password :</label>
             <input
               className="input"
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               value={formValues.password}
               onChange={handleInput}
               placeholder="password"
-            />{" "}
-            <p style={{ color: "black", fontSize: "16px" }}>
+            />
+            <button
+              className="bttn"
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+            </button>
+            <p style={{ color: "red", fontSize: "12px" }}>
               {error.passwordErr}
             </p>
           </div>
@@ -137,13 +128,24 @@ function SignUp() {
             <label style={{ marginRight: "5px" }}> Confirm Password :</label>
             <input
               className="input"
-              type="password"
+              type={showConfirmPassword ? "text" : "password"}
               name="cpassword"
               value={formValues.cpassword}
               onChange={handleInput}
-              placeholder="confirm-password"
-            />{" "}
-            <p style={{ color: "black", fontSize: "16px" }}>
+              placeholder="confirm password"
+            />
+            <button
+              className="bttn"
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+            >
+              {!showConfirmPassword ? (
+                <AiOutlineEye />
+              ) : (
+                <AiOutlineEyeInvisible />
+              )}
+            </button>
+            <p style={{ color: "red", fontSize: "12px" }}>
               {error.cpasswordErr}
             </p>
           </div>
@@ -158,15 +160,14 @@ function SignUp() {
             />
           </div>
           <div className="mb-3 mx-2">
-            <button
-              className="bttn"
-              type="button"
-              onClick={() => validation(formValues)}
-            >
+            <button className="bttn" type="button" onClick={() => validation()}>
               Sign up
             </button>
           </div>
         </form>
+        <div className="m-2">
+          <Link to="/login">Already have an account? </Link>
+        </div>
       </div>
     </div>
   );

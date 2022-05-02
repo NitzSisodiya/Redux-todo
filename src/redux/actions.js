@@ -32,10 +32,10 @@ export const todoSuccess = (list) => {
   };
 };
 
-export const todoStatus = (id, status) => {
+export const todoStatus = (toDoId, status) => {
   return {
     type: STATUS,
-    payload: { id, status },
+    payload: { toDoId, status },
   };
 };
 
@@ -60,7 +60,7 @@ export const userLogin = (value) => {
   };
 };
 
-export const changeStateProfile = ( profile) => {
+export const changeStateProfile = (profile) => {
   return {
     type: STATE_PROFILE,
     payload: { profile },

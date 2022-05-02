@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import { userLogin } from "../redux/operations";
 
 function LogIn() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [values, setValues] = useState({
     email: "",
     password: "",
@@ -20,13 +21,10 @@ function LogIn() {
   useEffect(() => {
     const user = getCookie("myEmail");
     const pswd = getCookie("myPassword");
-    console.log("usr---", user);
-    console.log("pass---", pswd);
     setValues({
       email: user,
       password: pswd,
     });
-
     document.cookie = "myEmail=; MaxAge=0; secure ;path=http://localhost:3000";
     document.cookie =
       "myPassword=; MaxAge=0; secure ; path=http://localhost:3000";
@@ -35,9 +33,10 @@ function LogIn() {
   const getCookie = (key) => {
     const name = key + "=";
     const arr = document.cookie.split("; ");
+
     for (var i = 0; i < arr.length; i++) {
       var item = arr[i];
-      while (item.charAt(0) == " ") {
+      while (item.charAt(0) === " ") {
         return (item = item.substring(1));
       }
       if (item.indexOf(name) === 0) {
@@ -52,7 +51,7 @@ function LogIn() {
     setValues({ ...values, [name]: value });
   };
 
-  const validation = (values) => {
+  const validation = () => {
     const { email, password } = values;
     const emailCheck = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
       email
@@ -68,7 +67,7 @@ function LogIn() {
       setError({ passwordErr: "" });
     }
   };
-  const remember = (values) => {
+  const remember = () => {
     document.cookie =
       "myEmail=" + values.email + "; path=http://localhost:3000";
     document.cookie =
@@ -91,21 +90,22 @@ function LogIn() {
             onChange={handleInput}
             placeholder="enter your email"
           />{" "}
-          <p style={{ color: "black", fontSize: "16px" }}>{error.emailErr}</p>
+          <p style={{ color: "red", fontSize: "8px" }}>{error.emailErr}</p>
         </div>
         <div className="mb-3 mx-2">
           <label style={{ marginRight: "5px" }}>Password :</label>
           <input
             className="input"
-            type="password"
+            type={showPassword ? "text" : "password"}
             name="password"
             value={values.password}
             onChange={handleInput}
             placeholder="password"
-          />{" "}
-          <p style={{ color: "black", fontSize: "16px" }}>
-            {error.passwordErr}
-          </p>
+          />
+          <button type="button" onClick={() => setShowPassword(!showPassword)}>
+            {!showPassword ? <AiOutlineEye /> : <AiOutlineEyeInvisible />}
+          </button>
+          <p style={{ color: "red", fontSize: "8px" }}>{error.passwordErr}</p>
         </div>
         <div className="mb-3 mx-2">
           <input
@@ -114,7 +114,7 @@ function LogIn() {
             name="remember me"
             id="myCheck"
             onClick={() => {
-              remember(values);
+              remember();
             }}
           />
           <label>
@@ -122,25 +122,12 @@ function LogIn() {
           </label>
         </div>
         <div className="mb-3 mx-2">
-          <button
-            className="bttn"
-            type="submit"
-            onClick={() => validation(values)}
-          >
+          <button className="bttn" type="submit" onClick={() => validation()}>
             log in
           </button>
         </div>
         <div className="mb-3 mx-2">
-          <b>Create an Account --</b>
-          <button
-            className="bttn"
-            type="button"
-            onClick={() => {
-              navigate("/signup");
-            }}
-          >
-            Sign up
-          </button>
+          <Link to="/signup">Create an Account? </Link>
         </div>
       </div>
     </div>

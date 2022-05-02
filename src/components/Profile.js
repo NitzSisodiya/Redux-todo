@@ -17,8 +17,7 @@ function Profile() {
   const selectProfile = (e) => {
     setProfile(e.target.files[0]);
   };
-  console.log("pro", profile);
-  console.log("user.pro", user.profile);
+
   const changeProfile = (user_id) => {
     if (profile !== user.profile) {
       var formData = new FormData();

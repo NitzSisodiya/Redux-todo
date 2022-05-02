@@ -5,7 +5,6 @@ import {
   TODO_SUCCESS,
   EDIT_TODO,
   GET_USER,
-  STATE_PROFILE,
 } from "./actionTypes";
 
 const initialState = {
@@ -40,11 +39,11 @@ const TodoReducer = (state = initialState, action) => {
       };
 
     case STATUS:
-      const { checkid, status } = action.payload;
-      const changeStatus = state.list.find((list) => list._id === checkid);
+      const { toDoId, status } = action.payload;
+      const changeStatus = state.list.find((list) => list._id === toDoId);
       const statusUpdated = { ...changeStatus, status: status };
       const updateList = state.list.map((list) =>
-        list._id === checkid ? statusUpdated : list
+        list._id === toDoId ? statusUpdated : list
       );
       return {
         ...state,

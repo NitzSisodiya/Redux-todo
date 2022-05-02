@@ -7,7 +7,7 @@ import { Table } from "react-bootstrap";
 import {
   addUSerTodo,
   toDoEdit,
-  delete_ToDo,
+  deleteToDo,
   statusOfToDo,
   fetchToDoList,
 } from "../redux/operations";
@@ -37,8 +37,8 @@ function UserToDo() {
     setInputValue(e.target.value);
   };
 
-  const validation = (field) => {
-    if (field === "") {
+  const validation = () => {
+    if (inputValue === "") {
       setErr("write a todo...");
     } else if (toggleButton) {
       dispatch(
@@ -68,6 +68,7 @@ function UserToDo() {
     setId("");
     setInputValue("");
     setToggleButton(true);
+    setErr("");
   };
 
   return (
@@ -97,7 +98,7 @@ function UserToDo() {
               <button
                 className="bttn"
                 onClick={() => {
-                  validation(inputValue);
+                  validation();
                 }}
               >
                 Add
@@ -124,7 +125,7 @@ function UserToDo() {
           
         </div>
         <div className="p-1">
-            <p style={{ color: "black", fontSize: "16px" }}>{err}</p>
+            <p style={{ color: "red", fontSize: "12px" }}>{err}</p>
           </div>
         {list.length > 0 ? (
           <h3 style={{ textAlign: "center" }}>To Do List </h3>
@@ -155,7 +156,7 @@ function UserToDo() {
                               onClick={() =>
                                 dispatch(
                                   toDoDelete(_id),
-                                  dispatch(delete_ToDo(_id))
+                                  dispatch(deleteToDo(_id))
                                 )
                               }
                             />

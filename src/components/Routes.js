@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { BiLogIn } from "react-icons/bi";
 import { NavDropdown } from "react-bootstrap";
 
-import LogIn from "../pages/LoginUser";
+import LogIn from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import Home from "../pages/Home";
 import UserToDo from "./UserToDo";
@@ -30,7 +30,7 @@ function Navbar() {
               <>
                 <div style={{ padding: "5px", marginRight: "auto" }}>
                   <Link
-                    to="/login/todo"
+                    to="/todo"
                     style={{ textDecoration: "none", color: "black" }}
                   >
                     Todos
@@ -43,7 +43,7 @@ function Navbar() {
                     className="dropdown"
                     style={{ textDecoration: "none", marginTop: "-8px" }}
                   >
-                    <NavDropdown.Item as={Link} to={`/profile/${user_id}`}>
+                    <NavDropdown.Item as={Link} to={"/profile"}>
                       {" "}
                       Profile
                     </NavDropdown.Item>
@@ -95,9 +95,9 @@ function Navbar() {
         <Routes>
           {token ? (
             <>
-              <Route path="/login/todo" element={<UserToDo />} />
+              <Route path="/todo" element={<UserToDo />} />
               <Route path="/" element={<Home />}></Route>
-              <Route path="/profile/:id" element={<Profile />}></Route>
+              <Route path="/profile" element={<Profile />}></Route>
             </>
           ) : (
             <>

@@ -5,7 +5,8 @@ function Home() {
     <div className=" background ">
       <div className="transbox">
         <h1>Welcome...</h1>
-        <p>Create your account...write your todos...</p>
+        <p>Create your account...</p>
+        <p>write your todos...</p>
       </div>
     </div>
   );
